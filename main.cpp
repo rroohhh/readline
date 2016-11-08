@@ -612,7 +612,7 @@ struct readline {
         }
     }
 
-    std::experimental::optional<utf8string> getline(const std::experimental::optional<utf8string> prompt = nullptr) noexcept {
+    std::experimental::optional<utf8string> getline(const std::experimental::optional<utf8string> prompt = {}) noexcept {
         current_read.clear();
         search_input.clear();
         cursor_pos = 0;
@@ -830,6 +830,7 @@ int main() {
     while(line) {
         auto l = line->unpack();
         if(!whitespace_only(l)) {
+	    fprintf(stderr, "got line: %s\n", l.c_str());
             rl.history_add(*line);
         }
         
